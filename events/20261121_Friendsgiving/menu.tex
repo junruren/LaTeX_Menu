@@ -1,0 +1,239 @@
+% !TEX program = xelatex
+% =====================================================================
+%  Friendsgiving — Saturday, November 21, 2026
+%  TODO: the drinks below are the template samples; replace with the real list.
+%  Build:  save in VS Code, or `make E=20261121_Friendsgiving`
+%          -> build/menu.pdf        one panel per page (screen / proofing)
+%          -> build/menu-print.pdf  imposed on Letter: print duplex, flip
+%                                   on short edge, fold in half
+% ---------------------------------------------------------------------
+%  Page order for one folded Letter sheet:
+%     page 1 = front cover      page 2 = inside left
+%     page 3 = inside right     page 4 = back cover
+%  Need more room? Just add pages (\nextpanel); the print build pads to a
+%  multiple of 4 and imposes a multi-sheet booklet automatically.
+%  Values containing a comma need braces:  taste = {Rich, smoky}
+%  Full reference: README.md   Glass styles: `make catalog`
+% =====================================================================
+\documentclass[
+  script = sc,        % sc = 简体, tc = 繁體
+  layout = stacked,   % stacked | parallel   (EN over ZH, or side by side)
+  lang   = both,      % both | en | zh
+  frame  = all,       % all | cover | none
+]{cocktailmenu}
+
+% ---- Optional global tweaks ------------------------------------------
+\menusetup{
+  % accent       = 8A6A3B,   % rules, ABV, ornaments (HTML hex)
+  % currency     = \$,       % shown in front of `price = ...`
+  % glass-liquid = false,    % plain outline icons
+  % spread       = false,    % don't stretch entries to fill each panel
+  % uppercase-names = false,
+}
+
+\begin{document}
+
+% =====================================================================
+%  PAGE 1 — FRONT COVER
+% =====================================================================
+\menucover{
+  title       = Friendsgiving,
+  title-zh    = 朋友感恩节,
+  subtitle    = Cocktails \& Spirits,
+  subtitle-zh = 鸡尾酒 · 烈酒,
+  edition     = {November 21, 2026 · 二〇二六年十一月二十一日},
+  glass       = coupe,          % any glass style, see glass-catalog.pdf
+}
+
+% =====================================================================
+%  PAGE 2 — INSIDE LEFT
+% =====================================================================
+\menusection{Classics}{经典鸡尾酒}
+
+\cocktail{
+  name           = Old Fashioned,
+  name-zh        = 古典,
+  glass          = rocks,
+  ingredients    = {Bourbon, Demerara, Angostura bitters, orange peel},
+  ingredients-zh = {波本威士忌, 德梅拉拉糖, 安格斯图拉苦精, 橙皮},
+  taste          = {Rich, spirit-forward, gently sweet},
+  taste-zh       = 浓郁醇厚，酒感饱满，微甜,
+  abv            = 32,
+}
+
+\cocktail{
+  name           = Dry Martini,
+  name-zh        = 干马天尼,
+  glass          = martini,
+  ingredients    = {London dry gin, dry vermouth, orange bitters, olive},
+  ingredients-zh = {伦敦干金酒, 干味美思, 橙味苦精, 橄榄},
+  taste          = {Crisp, bone-dry, botanical},
+  taste-zh       = 清冽干爽，植物芬芳,
+  abv            = 30,
+}
+
+\cocktail{
+  name           = Last Word,
+  name-zh        = 遗言,
+  glass          = nicknora,
+  ingredients    = {Gin, green Chartreuse, maraschino, lime},
+  ingredients-zh = {金酒, 绿查特酒, 黑樱桃利口酒, 青柠},
+  taste          = {Herbal, tart, perfectly balanced},
+  taste-zh       = 草本浓郁，酸甜平衡,
+  abv            = 23,
+}
+
+\cocktail{
+  name           = Paloma,
+  name-zh        = 帕洛玛,
+  glass          = highball,
+  ingredients    = {Blanco tequila, grapefruit soda, lime, sea salt},
+  ingredients-zh = {白龙舌兰, 西柚苏打, 青柠, 海盐},
+  taste          = {Tart, refreshing, lightly salted},
+  taste-zh       = 酸爽清新，微咸,
+  abv            = 9,
+}
+
+\cocktail{
+  name           = Moscow Mule,
+  name-zh        = 莫斯科骡子,
+  glass          = mule,
+  ingredients    = {Vodka, ginger beer, lime},
+  ingredients-zh = {伏特加, 姜汁啤酒, 青柠},
+  taste          = {Spicy, zesty, effervescent},
+  taste-zh       = 姜味辛辣，清爽带气,
+  abv            = 10,
+}
+
+\nextpanel
+% =====================================================================
+%  PAGE 3 — INSIDE RIGHT
+% =====================================================================
+\menusection{Signatures}{招牌特调}
+
+\cocktail{
+  name           = Osmanthus Sour,
+  name-zh        = 桂花酸,
+  glass          = coupe,
+  ingredients    = {Japanese whisky, osmanthus honey, lemon, egg white},
+  ingredients-zh = {日本威士忌, 桂花蜂蜜, 柠檬, 蛋清},
+  taste          = {Floral, silky, honeyed},
+  taste-zh       = 桂花芬芳，口感丝滑,
+  abv            = 15,
+  note           = Contains egg white,
+  note-zh        = 含蛋清,
+}
+
+\cocktail{
+  name           = Jasmine Collins,
+  name-zh        = 茉莉柯林斯,
+  glass          = collins,
+  ingredients    = {Gin, jasmine tea syrup, lemon, soda},
+  ingredients-zh = {金酒, 茉莉花茶糖浆, 柠檬, 苏打水},
+  taste          = {Delicate, floral, sparkling},
+  taste-zh       = 清雅花香，气泡轻盈,
+  abv            = 10,
+}
+
+\cocktail{
+  name           = Yuzu 75,
+  name-zh        = 柚子 75,
+  glass          = flute,
+  ingredients    = {Gin, yuzu, cane sugar, Champagne},
+  ingredients-zh = {金酒, 日本柚子, 蔗糖, 香槟},
+  taste          = {Bright, zesty, celebratory},
+  taste-zh       = 明亮清新，柚香四溢,
+  abv            = 16,
+  % price        = 16,   % <- uncomment to show a price (set `currency` above)
+}
+
+\cocktail{
+  name           = Midnight Tiki,
+  name-zh        = 午夜提基,
+  glass          = tiki,
+  ingredients    = {Aged rum, falernum, pineapple, lime, cinnamon},
+  ingredients-zh = {陈年朗姆, 法勒南, 菠萝, 青柠, 肉桂},
+  taste          = {Tropical, spiced, lush},
+  taste-zh       = 热带风情，香料丰盈,
+  abv            = 14,
+}
+
+\menusection{Zero Proof}{无酒精特调}
+
+\cocktail{
+  name           = Garden Cooler,
+  name-zh        = 花园清凉,
+  glass          = highball,
+  ingredients    = {Cucumber, mint, lime, elderflower tonic},
+  ingredients-zh = {黄瓜, 薄荷, 青柠, 接骨木花汤力水},
+  taste          = {Fresh, green, herbaceous},
+  taste-zh       = 清新草本，沁人心脾,
+  abv            = 0,             % 0 prints "Zero Proof · 无酒精"
+}
+
+\nextpanel
+% =====================================================================
+%  PAGE 4 — BACK COVER: spirits à la carte
+% =====================================================================
+\menusection{Whisky}{威士忌}
+
+\spiritgroup{Scotland}{苏格兰}
+\spirit{
+  name = Lagavulin 16,             name-zh = 乐加维林 16 年,
+  origin = Islay single malt,      origin-zh = 艾雷岛单一麦芽,
+  taste = {peat smoke, sea salt, dried fruit},
+  taste-zh = 泥煤烟熏、海盐、果干,
+  abv = 43,
+}
+\spirit{
+  name = Talisker 10,              name-zh = 泰斯卡 10 年,
+  origin = Isle of Skye,           origin-zh = 斯凯岛,
+  taste = {maritime smoke, black pepper},
+  taste-zh = 海洋烟熏、黑胡椒,
+  abv = 45.8,
+}
+\spirit{
+  name = Macallan 12 Sherry Oak,   name-zh = 麦卡伦 12 年雪莉桶,
+  origin = Speyside,               origin-zh = 斯佩塞,
+  taste = {dried fruit, ginger, wood spice},
+  taste-zh = 果干、生姜、木质香料,
+  abv = 40,
+}
+
+\spiritgroup{America}{美国}
+\spirit{
+  name = Woodford Reserve,         name-zh = 活福珍藏,
+  origin = Kentucky bourbon,       origin-zh = 肯塔基波本,
+  taste = {caramel, vanilla, toasted oak},
+  taste-zh = 焦糖、香草、烘烤橡木,
+  abv = 43.2,
+}
+\spirit{
+  name = Rittenhouse Rye,          name-zh = 瑞顿豪斯黑麦,
+  origin = Bottled-in-bond rye,    origin-zh = 保税黑麦威士忌,
+  taste = {baking spice, cocoa, cherry},
+  taste-zh = 烘焙香料、可可、樱桃,
+  abv = 50,
+}
+
+\spiritgroup{Japan}{日本}
+\spirit{
+  name = Yamazaki 12,              name-zh = 山崎 12 年,
+  origin = Single malt,            origin-zh = 单一麦芽,
+  taste = {peach, pineapple, Mizunara oak},
+  taste-zh = 桃子、菠萝、水楢木,
+  abv = 43,
+}
+\spirit{
+  name = Hibiki Harmony,           name-zh = 响 · 和风醇韵,
+  origin = Blended,                origin-zh = 调和威士忌,
+  taste = {honey, orange peel, white chocolate},
+  taste-zh = 蜂蜜、橙皮、白巧克力,
+  abv = 43,
+}
+
+\menufooter
+  {Please enjoy responsibly. ABV figures are estimates.}
+  {请理性饮酒 · 酒精度数均为估算值}
+
+\end{document}
