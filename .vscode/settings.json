@@ -1,24 +1,24 @@
 {
-  // LaTeX Workshop: build with XeLaTeX into ./build, then produce the
-  // print-ready booklet (build/<name>-print.pdf). Triggered on save.
+  // LaTeX Workshop: saving any menu .tex runs tools/build.sh, which puts
+  // shared/ on TeX's search path and writes <event>/build/menu.pdf and
+  // <event>/build/menu-print.pdf. The preview opens in a VS Code tab.
   "latex-workshop.latex.outDir": "%DIR%/build",
   "latex-workshop.latex.build.forceRecipeUsage": true,
   "latex-workshop.latex.recipe.default": "first",
   "latex-workshop.latex.recipes": [
-    { "name": "Menu: XeLaTeX + print booklet", "tools": ["xelatexmk", "impose"] },
-    { "name": "Menu: XeLaTeX only",            "tools": ["xelatexmk"] }
+    { "name": "Menu: screen + print PDFs", "tools": ["menu"] },
+    { "name": "Menu: screen PDF only",     "tools": ["menu-screen"] }
   ],
   "latex-workshop.latex.tools": [
     {
-      "name": "xelatexmk",
-      "command": "latexmk",
-      "args": ["-cd", "-xelatex", "-synctex=1", "-interaction=nonstopmode",
-               "-file-line-error", "-outdir=%OUTDIR%", "%DOC%"]
+      "name": "menu",
+      "command": "sh",
+      "args": ["%WORKSPACE_FOLDER%/tools/build.sh", "%DOC%.tex"]
     },
     {
-      "name": "impose",
+      "name": "menu-screen",
       "command": "sh",
-      "args": ["%DIR%/tools/impose.sh", "%OUTDIR%/%DOCFILE%.pdf"]
+      "args": ["%WORKSPACE_FOLDER%/tools/build.sh", "--no-print", "%DOC%.tex"]
     }
   ],
   "latex-workshop.latex.autoClean.run": "never",

@@ -1,14 +1,19 @@
 % !TEX program = xelatex
 % =====================================================================
-%  My cocktail menu
-%  Build:  make            -> build/menu.pdf        (one panel per page, for screens)
-%                          -> build/menu-print.pdf  (imposed on Letter, print duplex & fold)
+%  Cocktail menu  (template: `make new E=YYYYMMDD_Name` copies this file
+%  into events/YYYYMMDD_Name/menu.tex)
+%  Build:  save in VS Code, or `make E=YYYYMMDD_Name`
+%          -> build/menu.pdf        one panel per page (screen / proofing)
+%          -> build/menu-print.pdf  imposed on Letter: print duplex, flip
+%                                   on short edge, fold in half
 % ---------------------------------------------------------------------
 %  Page order for one folded Letter sheet:
 %     page 1 = front cover      page 2 = inside left
 %     page 3 = inside right     page 4 = back cover
 %  Need more room? Just add pages (\nextpanel); the print build pads to a
 %  multiple of 4 and imposes a multi-sheet booklet automatically.
+%  Values containing a comma need braces:  taste = {Rich, smoky}
+%  Full reference: README.md   Glass styles: `make catalog`
 % =====================================================================
 \documentclass[
   script = sc,        % sc = 简体, tc = 繁體

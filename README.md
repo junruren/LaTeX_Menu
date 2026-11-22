@@ -2,23 +2,43 @@
 
 Bilingual (English / 中文) cocktail and spirits menus, laid out for **US Letter folded in half** (5.5 × 8.5 in panels).
 
+## Layout
+
+```
+shared/                     shared assets, used by every event
+  cocktailmenu.cls            document class (layout, commands, settings)
+  cocktailglasses.sty         TikZ glass icons (\glassicon, \DeclareGlass)
+  template.tex                starting point for new events (full example)
+  glass-catalog.tex           reference sheet of every glass style
+events/
+  20261121_Friendsgiving/
+    menu.tex                  this event's drinks
+    build/                    generated PDFs (not tracked by git)
+tools/                      build.sh, impose.sh, new-event.sh
+```
+
+Event folders are named `YYYYMMDD_Name`, using letters, digits, `-`, `_` or `.`. Spaces aren't allowed because they break the build tools.
+
 ## Quick start
 
 ```sh
-make            # builds every menu in this folder
-open build/menu.pdf build/menu-print.pdf
+make new E=20261225_Christmas                             # new event from the template
+make new E=20261225_Christmas FROM=20261121_Friendsgiving # …or copy an earlier event
+make E=20261225_Christmas                                 # build one event
+make                                                      # build every event
+make catalog                                              # glass reference sheet
 ```
 
-Each `*.tex` menu produces two PDFs:
+Each event's `build/` folder gets two PDFs:
 
 | File | Use it for |
 |---|---|
 | `build/menu.pdf` | Screen viewing: one panel per page, in reading order |
 | `build/menu-print.pdf` | Printing: panels arranged two per Letter sheet in booklet order |
 
-**In VS Code** (LaTeX Workshop is already installed), open `menu.tex` and save. It rebuilds both PDFs and shows a preview in a tab.
+**In VS Code** (LaTeX Workshop), open the repo folder, open an event's `menu.tex` and save. It rebuilds both PDFs and shows a preview in a tab.
 
-To make another menu, copy `menu.tex` (for example to `summer-2027.tex`) and run `make`.
+If you change `shared/cocktailmenu.cls` or `shared/cocktailglasses.sty`, every event picks up the change on its next build. To freeze an event's look (for example a printed past menu), copy the class into that event's folder; a local copy takes precedence.
 
 ## Printing
 
@@ -83,7 +103,7 @@ If you add more pages with `\nextpanel`, the print build pads them to a multiple
 | Key | Example | Notes |
 |---|---|---|
 | `name`, `name-zh` | `Old Fashioned`, `古典` | Uppercased automatically (`uppercase-names=false` turns this off) |
-| `glass` | `rocks` | See `glass-catalog.tex` / `make catalog` |
+| `glass` | `rocks` | See `make catalog` → `shared/build/glass-catalog.pdf` |
 | `ingredients`, `ingredients-zh` | `{Gin, lime, sugar}` | Comma list, joined with `·` |
 | `taste`, `taste-zh` | `{Tart, clean}` | Italic (EN) and Kaiti 楷体 (ZH) |
 | `abv` | `18`, `12--15`, `0` | `0` prints **Zero Proof 无酒精** |
@@ -97,7 +117,7 @@ If you add more pages with `\nextpanel`, the print build pads them to a multiple
 
 Aliases: `oldfashioned` `lowball` → rocks, `cocktail` → martini, `champagne` → flute, `brandy` → snifter, `whisky`/`whiskey` → glencairn, `coppermug` → mule, `toddy` → irishcoffee, `nickandnora` → nicknora.
 
-Add your own glass in the preamble with `\DeclareGlass`; see the header of `cocktailglasses.sty`.
+Add your own glass in the preamble with `\DeclareGlass`; see the header of `shared/cocktailglasses.sty`.
 
 ## Global settings
 
@@ -132,16 +152,16 @@ The defaults are all bundled with macOS: **Didot** for titles, **Baskerville** f
 \setCJKfamilyfont{menuzhdisplay}{Kaiti SC}   % Chinese titles
 ```
 
-## Files
+## Build tools
 
 ```
-cocktailmenu.cls      the document class (layout, commands, settings)
-cocktailglasses.sty   TikZ glass icons (\glassicon, \DeclareGlass)
-menu.tex              your menu: edit this
-glass-catalog.tex     reference sheet of every glass style
+tools/build.sh        puts shared/ on TeX's path, runs latexmk (XeLaTeX), then impose.sh
 tools/impose.sh       turns build/X.pdf into the print booklet build/X-print.pdf
-Makefile, .latexmkrc  build configuration (XeLaTeX via latexmk)
-.vscode/settings.json LaTeX Workshop recipes
+tools/new-event.sh    creates events/<name>/menu.tex (used by `make new`)
+Makefile              shortcuts for the above
+.vscode/settings.json LaTeX Workshop recipes (call tools/build.sh)
 ```
+
+Running plain `latexmk` or `xelatex` inside an event folder won't find the shared class. Use `make`, VS Code, or `tools/build.sh`.
 
 Requirements: TeX Live 2023+ (XeLaTeX, latexmk, xeCJK, fontspec, TikZ, pdfpages) and macOS for the default fonts. On another OS, change the fonts as shown above.

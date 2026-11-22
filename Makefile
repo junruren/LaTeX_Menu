@@ -1,32 +1,30 @@
 # ----------------------------------------------------------------------
-#  make              build every menu (*.tex in this folder, except
-#                    glass-catalog) + its print-ready version
-#  make menu         build just menu.tex  ->  build/menu.pdf, build/menu-print.pdf
-#  make catalog      build the glass reference sheet
-#  make watch        rebuild menu.tex on every save
-#  make clean        remove build/
+#  make                       build every event menu
+#  make E=20261121_Friendsgiving
+#                             build one event
+#  make new E=20261225_Christmas [FROM=20261121_Friendsgiving]
+#                             start a new event from the template
+#                             (or from a copy of an earlier event)
+#  make catalog               glass reference -> shared/build/glass-catalog.pdf
+#  make clean                 remove all build folders
+#
+#  Each event folder gets build/menu.pdf (screen) and
+#  build/menu-print.pdf (print duplex, flip on short edge, fold).
 # ----------------------------------------------------------------------
-BUILD   := build
-DEPS    := cocktailmenu.cls cocktailglasses.sty
-MENUS   := $(filter-out glass-catalog,$(basename $(wildcard *.tex)))
+MENUS := $(if $(E),$(wildcard events/$(E)/*.tex),$(wildcard events/*/*.tex))
 
-.PHONY: all catalog watch clean $(MENUS)
+.PHONY: all new catalog clean
 
-all: $(MENUS)
+all:
+	@test -n "$(MENUS)" || { echo "No menus found in events/$(or $(E),*)/"; exit 1; }
+	@for f in $(MENUS); do sh tools/build.sh "$$f" || exit 1; done
 
-$(MENUS): %: $(BUILD)/%-print.pdf
+new:
+	@test -n "$(E)" || { echo "usage: make new E=YYYYMMDD_Name [FROM=existing_event]"; exit 1; }
+	@sh tools/new-event.sh "$(E)" $(FROM)
 
-catalog: $(BUILD)/glass-catalog.pdf
-
-# (print rule listed first: GNU make 3.81 picks the first matching pattern)
-$(BUILD)/%-print.pdf: $(BUILD)/%.pdf tools/impose.tex tools/impose.sh
-	@sh tools/impose.sh $< $@
-
-$(BUILD)/%.pdf: %.tex $(DEPS)
-	latexmk -xelatex -outdir=$(BUILD) $<
-
-watch:
-	latexmk -xelatex -pvc -outdir=$(BUILD) menu.tex
+catalog:
+	@sh tools/build.sh --no-print shared/glass-catalog.tex
 
 clean:
-	rm -rf $(BUILD)
+	rm -rf events/*/build shared/build
