@@ -1,0 +1,185 @@
+% !TEX program = xelatex
+% =====================================================================
+%  Friendsgiving 2026-11-21 — bartender cheatsheet (for the host)
+%  Build:  save in VS Code, or `make E=20261121_Friendsgiving`
+%          -> build/cheatsheet.pdf   (2 Letter pages, print as-is)
+%  Page 1: batched specials + prep list    Page 2: made-to-order specs
+% =====================================================================
+\documentclass{cocktailcheatsheet}
+
+\begin{document}
+
+% =====================================================================
+%  PAGE 1 — BATCHES & PREP
+% =====================================================================
+\sheetheader{Friendsgiving Bar}{酒保速查}{Sat, Nov 21, 2026 · 16 guests · 16 位客人}
+
+{\fontsize{8.8}{11.5}\selectfont\color{menuink!85}\noindent
+ \textcolor{menuaccent}{\bfseries 换算}\enspace
+ 1 oz = 30 mL · ¾ oz = 22.5 mL · ½ oz = 15 mL · 1 tsp = 5 mL
+ \hfill
+ \textcolor{menuaccent}{\bfseries 糖浆}\enspace
+ Simple 糖浆 1:1 · Honey 蜂蜜糖浆 3:1（蜂蜜 : 水，按重量）\par}
+\vspace{8pt}
+
+\sheetsection{Batched · Make Ahead}{预调批次}
+
+\noindent
+\begin{recipe}[half=batch]{
+  name = Winter Aperol Spritz, name-zh = 冬日蔓越莓气泡酒,
+  glass = stemless, abv = 7,
+  yield = {≈ 16 杯 × 140 mL · 共 2.25 L},
+  method = 饮料桶自取, serve = {派对杯 · 加冰}, garnish = {橙片 + 迷迭香},
+}
+\begin{ingredients}
+  \ing{750 mL}{1 瓶}{Aperol}{Aperol 开胃酒}
+  \ing{750 mL}{1 瓶}{Prosecco}{普罗塞克起泡酒}
+  \ing{250 mL}{}{Unsweetened cranberry juice}{无糖纯蔓越莓汁}
+  \ing{500 mL}{}{Club soda}{无糖苏打水}
+  \ing{2–3 个}{}{Orange, thin half-moons}{鲜橙，切薄半月片}
+  \ing{16–20 枝}{}{Rosemary sprigs}{迷迭香小枝}
+\end{ingredients}
+\prep{把 Aperol 和蔓越莓汁混合冷藏。Prosecco 和苏打水也提前冰好，等客人到了再开瓶。}
+\serve{把调好的酒底倒进饮料桶，缓缓加入 Prosecco 和苏打水，轻轻搅匀。冰块放在杯里，每杯接约 140 mL，再放一片橙子和一小枝迷迭香。}
+\end{recipe}\hfill
+\begin{recipe}[half=batch]{
+  name = November Nightcap, name-zh = 十一月的晚安酒,
+  glass = rocks, abv = 24–26,
+  yield = {6 杯 × 75 mL · 共 450 mL},
+  method = 预调装瓶冷藏, serve = {小杯 · 不加冰}, garnish = 橙皮挤油,
+}
+\begin{ingredients}
+  \ing{120 mL}{4 oz}{Bourbon}{波本威士忌}
+  \ing{60 mL}{2 oz}{Martell Blue Swift}{马爹利 Blue Swift}
+  \ing{90 mL}{3 oz}{Campari}{金巴利}
+  \ing{90 mL}{3 oz}{Sweet vermouth (Cocchi di Torino)}{甜味美思}
+  \ing{90 mL}{3 oz}{Cold water}{冷水（整批稀释量）}
+  \ing{1 段}{2–3 cm}{Cinnamon stick}{肉桂棒}
+  \ing{6 片}{}{Fresh orange peel}{新鲜橙皮，每杯 1 片}
+\end{ingredients}
+\prep{把肉桂棒放进甜味美思里，浸泡 20 分钟后取出。加入波本、Blue Swift、Campari 和冷水，搅匀、装瓶、冷藏。90 mL 冷水已经算好了整批的稀释量。}
+\serve{每杯直接倒入冰镇好的酒 75 mL。取一片橙皮，橙色那面朝向酒面，轻轻一挤，让橙油落在酒面上，再把橙皮放入杯中。}
+\end{recipe}\par
+\vspace{6pt}
+
+\sheetsection{Mise en Place}{备料清单}
+
+\begin{tcolorbox}[cms panel, after skip=0pt]
+\begin{minipage}[t]{0.5\linewidth}
+  {\fontsize{9.5}{12}\selectfont\color{menuaccent}\bfseries 客人到之前 · Before guests\par}
+  \begin{checklist}
+    \item Nightcap 批次：浸肉桂 20 分钟 $\rightarrow$ 混合 $\rightarrow$ 装瓶冷藏（可提前一天）
+    \item Spritz 酒底：Aperol + 蔓越莓汁混合冷藏；Prosecco、苏打水、气泡水全部冰好
+    \item 先削皮、再榨汁：留 6 片橙皮给 Nightcap，几片给 Cosmo
+    \item 榨汁（当天榨，冷藏）：柠檬 ≈ 200 mL（约 7 个）· 青柠 ≈ 150 mL（约 6 个）· 橙汁 ≈ 150 mL（约 2 个）
+    \item 切 2–3 个橙子薄半月片；迷迭香 16–20 枝给 Spritz，再留 6 枝给 Fizz
+    \item 冰杯：鸡尾酒杯（Cosmo）和香槟杯（French 75）放冰箱
+    \item 冰块至少 8 kg（约 18 lb）；Gold Rush 备几块大方冰
+  \end{checklist}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.46\linewidth}
+  {\fontsize{9.5}{12}\selectfont\color{menuaccent}\bfseries 库存与用量 · Stock check\par}
+  \begin{checklist}
+    \item Prosecco：Spritz 用掉 1 瓶；French 75 每杯 60 mL，需另备一瓶（≈ 12 杯）
+    \item 蔓越莓汁：Spritz 250 mL，另加 Cosmo 每杯 30 mL
+    \item 君度 375 mL：Margarita 每杯 22.5 mL、Cosmo 每杯 15 mL，两款合计约 20 杯
+    \item 气泡水 / 苏打：Spritz 500 mL，高球每杯 135 mL，Fizz 每杯约 100 mL
+    \item 蜂蜜糖浆 3:1：Gold Rush 每杯 22.5 mL、Fizz 每杯 15 mL
+    \item 糖浆 1:1：French 75 每杯 15 mL、Cosmo 10 mL、Margarita 5 mL
+  \end{checklist}
+  \vspace{3pt}
+  {\fontsize{7.6}{9.5}\selectfont\color{menuink!60}榨汁量按每款现调约 3 杯估算。\par}
+\end{minipage}
+\end{tcolorbox}
+
+\newpage
+% =====================================================================
+%  PAGE 2 — MADE TO ORDER (per drink)
+% =====================================================================
+\sheetheader{Made to Order}{现点现调}{All amounts per drink · 以下均为单杯用量}
+
+\noindent
+\begin{recipe}[half=r1]{
+  name = Gold Rush, name-zh = 淘金热, glass = rocks, abv = 22,
+  method = 摇, serve = {古典杯 · 大方冰}, garnish = {无（可加柠檬皮）},
+  source = {Difford’s Guide, Gold Rush (Milk \& Honey, NYC)},
+}
+\begin{ingredients}
+  \ing{60 mL}{2 oz}{Wyoming Whiskey Double Cask}{怀俄明双桶波本}
+  \ing{22.5 mL}{¾ oz}{Fresh lemon juice}{鲜柠檬汁}
+  \ing{22.5 mL}{¾ oz}{Honey syrup 3:1}{蜂蜜糖浆}
+\end{ingredients}
+\method{加冰用力摇 10–12 秒，滤入放了一块大方冰的古典杯。}
+\tip{你的蜂蜜糖浆如果是 1:1，就用 30 mL（1 oz）。}
+\end{recipe}\hfill
+\begin{recipe}[half=r1]{
+  name = Mezcal Margarita, name-zh = 烟熏玛格丽特, glass = rocks, abv = 25,
+  method = 摇, serve = {古典杯 · 新冰}, garnish = {青柠角，可做半圈盐边},
+  source = {Difford’s Guide, Mezcal Margarita；原方用龙舌兰糖浆，这里换成糖浆},
+}
+\begin{ingredients}
+  \ing{45 mL}{1½ oz}{Mezcal Vago Espadín}{Vago 梅斯卡尔}
+  \ing{22.5 mL}{¾ oz}{Cointreau}{君度橙酒}
+  \ing{22.5 mL}{¾ oz}{Fresh lime juice}{鲜青柠汁}
+  \ing{5 mL}{1 tsp}{Simple syrup}{糖浆（0–7.5 mL 按口味）}
+  \ing{1 小撮}{pinch}{Salt}{盐}
+\end{ingredients}
+\method{全部加冰摇匀，滤入装满新冰的古典杯。}
+\end{recipe}\rowgap
+\noindent
+\begin{recipe}[half=r2]{
+  name = Mandarin Cosmo, name-zh = 柑橘大都会, glass = coupe, abv = 15,
+  method = 摇, serve = {冰过的鸡尾酒杯 · 不加冰}, garnish = 橙皮挤油,
+  source = {IBA 官方 Cosmopolitan；原方为柑橘伏特加 + 含糖蔓越莓汁},
+}
+\begin{ingredients}
+  \ing{40 mL}{1⅓ oz}{Hanson Mandarin vodka}{Hanson 柑橘伏特加}
+  \ing{15 mL}{½ oz}{Cointreau}{君度橙酒}
+  \ing{15 mL}{½ oz}{Fresh lime juice}{鲜青柠汁}
+  \ing{30 mL}{1 oz}{Cranberry juice}{蔓越莓汁}
+  \ing{10 mL}{2 tsp}{Simple syrup}{糖浆}
+\end{ingredients}
+\method{加冰摇匀，双重过滤到冰过的鸡尾酒杯，挤橙皮油后放入。}
+\tip{你的蔓越莓汁是无糖的，所以额外加 10 mL 糖浆补甜。}
+\end{recipe}\hfill
+\begin{recipe}[half=r2]{
+  name = French 75, name-zh = 法式 75, glass = flute, abv = 15,
+  method = {摇 + 顶气泡酒}, serve = 香槟杯, garnish = 柠檬皮,
+  source = {IBA 官方 French 75；原方用香槟},
+}
+\begin{ingredients}
+  \ing{30 mL}{1 oz}{Tanqueray No. TEN gin}{添加利 No. TEN 金酒}
+  \ing{15 mL}{½ oz}{Fresh lemon juice}{鲜柠檬汁}
+  \ing{15 mL}{½ oz}{Simple syrup}{糖浆}
+  \ing{60 mL}{2 oz}{Prosecco, to top}{普罗塞克起泡酒（最后倒）}
+\end{ingredients}
+\method{金酒、柠檬汁、糖浆加冰摇匀，滤入香槟杯，再缓缓倒入 Prosecco，轻轻搅一下。}
+\tip{Prosecco 比香槟甜，如果偏甜，把糖浆减到 10 mL。}
+\end{recipe}\rowgap
+\noindent
+\begin{recipe}[half=r3]{
+  name = Toki Highball, name-zh = 三得利季高球, glass = highball, abv = 10,
+  method = 直调, serve = {高杯 · 满冰}, garnish = 柠檬皮,
+  source = {House of Suntory 官方高球比例，威士忌 : 苏打 = 1 : 3–4},
+}
+\begin{ingredients}
+  \ing{45 mL}{1½ oz}{Suntory Toki}{三得利季威士忌}
+  \ing{135 mL}{4½ oz}{Chilled sparkling water}{冰气泡水（1:3，可到 1:4）}
+\end{ingredients}
+\method{高杯装满冰，倒入威士忌搅匀，补满冰；沿冰块慢慢倒入冰气泡水，只轻轻提拉一下保住气泡，最后挤柠檬皮。}
+\end{recipe}\hfill
+\begin{recipe}[half=r3]{
+  name = Rosemary Citrus Fizz, name-zh = 迷迭香柑橘气泡, glass = highball, abv = 0,
+  method = {摇 + 顶气泡水}, serve = {高杯 · 满冰}, garnish = 迷迭香,
+  source = {自创 house spec，按口味调甜度},
+}
+\begin{ingredients}
+  \ing{45 mL}{1½ oz}{Fresh orange juice}{鲜橙汁}
+  \ing{15 mL}{½ oz}{Fresh lemon juice}{鲜柠檬汁}
+  \ing{15 mL}{½ oz}{Honey syrup 3:1}{蜂蜜糖浆}
+  \ing{90–120 mL}{3–4 oz}{Sparkling water, to top}{气泡水（最后倒）}
+\end{ingredients}
+\method{橙汁、柠檬汁、蜂蜜糖浆加冰摇匀，倒入装满冰的高杯，顶满气泡水；迷迭香在掌心拍一下再插入。}
+\end{recipe}\par
+
+\end{document}

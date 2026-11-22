@@ -8,8 +8,9 @@
 % ---------------------------------------------------------------------
 %  Page order:  1 = front cover   2 = inside left (welcome + special)
 %               3 = inside right (made to order)   4 = back (neat pours)
-%  Host specs (not printed) are in the comments above each drink; the
-%  ABV figures are estimated from those specs including dilution.
+%  Recipes / specs for the host: cheatsheet.tex (build/cheatsheet.pdf).
+%  ABVs for the made-to-order drinks are estimated from those specs,
+%  including dilution from shaking.
 %  Values containing a comma need braces:  taste = {Rich, smoky}
 % =====================================================================
 \documentclass[
@@ -54,7 +55,7 @@
                     bright Prosecco bubbles and a sprig of rosemary for a little
                     Christmas cheer. Help yourself to a glass over ice.},
   description-zh = {把感恩节的蔓越莓调进 Aperol 的苦甜橙香里，加上 Prosecco 的气泡，
-                    杯边再插一枝像小松枝的迷迭香。加冰自取，举杯就开席！},
+                    杯边再放一枝像小松枝的迷迭香。加冰自取，举杯就开席！},
   abv            = 7,
   note           = Serve over ice,
   note-zh        = 加冰享用,
@@ -67,17 +68,21 @@
   name-zh        = 十一月的晚安酒,
   glass          = rocks,
   ingredients    = {Bourbon, Martell Blue Swift, Campari, Sweet Vermouth, Cinnamon, Orange Peel},
-  ingredients-zh = {波本威士忌, 马爹利蓝带尚选（Blue Swift）, 金巴利, 甜味美思, 肉桂, 橙皮},
+  ingredients-zh = {波本威士忌, 马爹利 Blue Swift, 金巴利, 甜味美思, 肉桂, 橙皮},
   description    = {A fireside twist on the Boulevardier. Fresh orange peel greets
                     you first, followed by bourbon, a little cinnamon, and a
                     bittersweet finish. Pour a small glass and settle in for one
                     more Christmas song.},
   description-zh = {这杯从经典 Boulevardier 变化而来。举杯先闻到橙皮香，入口是波本和淡淡的肉桂，
-                    最后留下一点苦甜。适合饭后倒上一小杯，陪大家再听一首圣诞歌。},
+                    最后留下一点苦甜。饭后倒上一小杯，陪大家再听一首圣诞歌。},
   abv            = 24--26,
   note           = A slow sip after dinner,
   note-zh        = 饭后慢饮,
 }
+
+\menufooter
+  {Happy Friendsgiving! Please enjoy responsibly. ABV figures are estimates.}
+  {朋友感恩节快乐！请理性饮酒 · 酒精度数均为估算值}
 
 \nextpanel
 % =====================================================================
@@ -86,8 +91,6 @@
 \menusection{Made to Order}{现点现调}
 \menutext{Shaken or stirred fresh, just ask the host.}{现点现调，随时找主人点单。}
 
-% 2 oz Wyoming Whiskey Double Cask (50%) · ¾ oz honey syrup · ¾ oz lemon
-% Shake, strain over a large cube.
 \cocktail{
   name           = Gold Rush,
   name-zh        = 淘金热,
@@ -96,11 +99,9 @@
   ingredients-zh = {怀俄明双桶波本, 蜂蜜, 柠檬},
   taste          = {Honeyed, bright, warming},
   taste-zh       = 蜂蜜香甜，明亮温暖,
-  abv            = 21,
+  abv            = 22,
 }
 
-% 1½ oz Mezcal Vago Espadín (50.2%) · ¾ oz Cointreau · ¾ oz lime · ¼ oz simple
-% Shake, strain over fresh ice (half salt rim optional).
 \cocktail{
   name           = Mezcal Margarita,
   name-zh        = 烟熏玛格丽特,
@@ -109,11 +110,9 @@
   ingredients-zh = {Vago 梅斯卡尔, 君度橙酒, 青柠},
   taste          = {Gently smoky, tart, bright},
   taste-zh       = 淡淡烟熏，酸爽明快,
-  abv            = 24,
+  abv            = 25,
 }
 
-% 1½ oz Hanson Mandarin vodka (40%) · ¾ oz Cointreau · ¾ oz cranberry · ½ oz lime
-% Shake, strain up; orange-peel garnish.
 \cocktail{
   name           = Mandarin Cosmo,
   name-zh        = 柑橘大都会,
@@ -122,11 +121,9 @@
   ingredients-zh = {Hanson 柑橘伏特加, 君度橙酒, 蔓越莓汁, 青柠},
   taste          = {Juicy mandarin, tart cranberry},
   taste-zh       = 柑橘多汁，蔓越莓微酸,
-  abv            = 19,
+  abv            = 15,
 }
 
-% 1¼ oz Tanqueray No. TEN (47.3%) · ½ oz lemon · ½ oz simple
-% Shake, strain into flute, top with 3 oz Prosecco; lemon twist.
 \cocktail{
   name           = French 75,
   name-zh        = 法式 75,
@@ -138,8 +135,6 @@
   abv            = 15,
 }
 
-% 1½ oz Suntory Toki (43%) · 4½ oz cold sparkling water · lemon peel
-% Build in a tall glass full of ice; stir once.
 \cocktail{
   name           = Toki Highball,
   name-zh        = 三得利季高球,
@@ -151,8 +146,6 @@
   abv            = 10,
 }
 
-% 1½ oz fresh orange · ½ oz lemon · ½ oz honey syrup · top sparkling water
-% Build over ice; slap a rosemary sprig and tuck it in.
 \cocktail{
   name           = Rosemary Citrus Fizz,
   name-zh        = 迷迭香柑橘气泡,
@@ -168,6 +161,7 @@
 % =====================================================================
 %  PAGE 4 — BACK: neat pours from the bar
 % =====================================================================
+\menusetup{spirit-sep = 4.5pt, group-sep = 10pt}   % a little tighter to fit 9 bottles
 \menusection{Neat Pours}{纯饮}
 
 \spiritgroup{Japan}{日本}
@@ -192,6 +186,16 @@
   taste = {toffee, baking spice, dried fruit},
   taste-zh = 太妃糖、烘焙香料、果干,
   abv = 51.4,
+}
+
+\spiritgroup{China}{中国}
+% TODO: check the label for the ABV (PX Finish is 46.8%, travel edition 48.6%)
+\spirit{
+  name = The Chuan Pure Malt,          name-zh = 叠川,
+  origin = {Emeishan, Sichuan},        origin-zh = 四川峨眉山,
+  taste = {ripe fruit, vanilla, sandalwood, mandarin peel},
+  taste-zh = 果香、香草、檀木、橘皮,
+  % abv = ,
 }
 
 \spiritgroup{Scotland}{苏格兰}
@@ -222,7 +226,7 @@
 
 \spiritgroup{Beyond Whisky}{威士忌之外}
 \spirit{
-  name = Martell Blue Swift,           name-zh = 马爹利蓝带尚选,
+  name = Martell Blue Swift,           name-zh = 马爹利 Blue Swift,
   origin = {VSOP cognac, bourbon-cask finish}, origin-zh = VSOP 干邑，波本桶收尾,
   taste = {vanilla, candied fruit, toasted oak},
   taste-zh = 香草、蜜饯、烘烤橡木,
@@ -236,8 +240,5 @@
   abv = 50.2,
 }
 
-\menufooter
-  {Happy Friendsgiving! Please enjoy responsibly. ABV figures are estimates.}
-  {朋友感恩节快乐！请理性饮酒 · 酒精度数均为估算值}
 
 \end{document}

@@ -1,7 +1,7 @@
 #!/bin/sh
 # Start a new event menu.
 #   tools/new-event.sh 20261225_Christmas                          # from shared/template.tex
-#   tools/new-event.sh 20261225_Christmas 20261121_Friendsgiving   # copy an earlier event
+#   tools/new-event.sh 20261225_Christmas 20261121_Friendsgiving   # copy an earlier event's .tex files
 set -e
 root="$(cd "$(dirname "$0")/.." && pwd)"
 name="$1"
@@ -12,8 +12,15 @@ case "$name" in
 esac
 dest="$root/events/$name"
 [ ! -e "$dest" ] || { echo "new-event: events/$name already exists" >&2; exit 1; }
-if [ -n "$from" ]; then src="$root/events/$from/menu.tex"; else src="$root/shared/template.tex"; fi
-[ -f "$src" ] || { echo "new-event: '$src' not found" >&2; exit 1; }
-mkdir -p "$dest"
-cp "$src" "$dest/menu.tex"
-echo "new-event: created events/$name/menu.tex (from ${from:-shared/template.tex})"
+if [ -n "$from" ]; then
+  # copy every .tex of the earlier event (menu, cheatsheet, ...)
+  [ -d "$root/events/$from" ] || { echo "new-event: events/$from not found" >&2; exit 1; }
+  mkdir -p "$dest"
+  cp "$root/events/$from"/*.tex "$dest"/
+  echo "new-event: created events/$name/ ($(cd "$dest" && ls *.tex | tr '\n' ' ')) from events/$from"
+else
+  src="$root/shared/template.tex"
+  mkdir -p "$dest"
+  cp "$src" "$dest/menu.tex"
+  echo "new-event: created events/$name/menu.tex (from shared/template.tex)"
+fi

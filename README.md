@@ -8,11 +8,13 @@ Bilingual (English / 中文) cocktail and spirits menus, laid out for **US Lette
 shared/                     shared assets, used by every event
   cocktailmenu.cls            document class (layout, commands, settings)
   cocktailglasses.sty         TikZ glass icons (\glassicon, \DeclareGlass)
+  cocktailcheatsheet.cls      bartender recipe cheatsheet (full Letter pages)
   template.tex                starting point for new events (full example)
   glass-catalog.tex           reference sheet of every glass style
 events/
   20261121_Friendsgiving/
-    menu.tex                  this event's drinks
+    menu.tex                  this event's drinks (guests)
+    cheatsheet.tex            recipes & prep list (host)
     build/                    generated PDFs (not tracked by git)
 tools/                      build.sh, impose.sh, new-event.sh
 ```
@@ -29,12 +31,13 @@ make                                                      # build every event
 make catalog                                              # glass reference sheet
 ```
 
-Each event's `build/` folder gets two PDFs:
+Each menu in an event's `build/` folder gets two PDFs:
 
 | File | Use it for |
 |---|---|
 | `build/menu.pdf` | Screen viewing: one panel per page, in reading order |
 | `build/menu-print.pdf` | Printing: panels arranged two per Letter sheet in booklet order |
+| `build/cheatsheet.pdf` | The host's recipe cheatsheet: full Letter pages, print as-is (not imposed) |
 
 **In VS Code** (LaTeX Workshop), open the repo folder, open an event's `menu.tex` and save. It rebuilds both PDFs and shows a preview in a tab.
 
@@ -137,7 +140,7 @@ Set these as class options (`\documentclass[...]{cocktailmenu}`) or anywhere wit
 | `spread` | `true` | Share spare space on each panel between the items and the bottom edge |
 | `uppercase-names` | `true` | |
 | `icon-height`, `icon-column` | `0.6in`, `0.66in` | |
-| `entry-sep`, `spirit-sep` | `11pt`, `6pt` | Minimum gap between items |
+| `entry-sep`, `spirit-sep`, `group-sep` | `11pt`, `6pt`, `12pt` | Minimum gap between items / before a `\spiritgroup`; can be changed per panel |
 | `ingredient-sep`, `ingredient-sep-zh` | dot | Custom separator, e.g. `{,\ }` or `{、}` |
 | `abv-label`, `zero-proof-label`, `zero-proof-label-zh` | `ABV`, `Zero Proof`, `无酒精` | |
 
@@ -153,10 +156,35 @@ The defaults are all bundled with macOS: **Didot** for titles, **Baskerville** f
 \setCJKfamilyfont{menuzhdisplay}{Kaiti SC}   % Chinese titles
 ```
 
+## Bartender cheatsheet
+
+`events/<event>/cheatsheet.tex` uses `\documentclass{cocktailcheatsheet}`, which has the same fonts, colours and glass icons as the menu on full Letter pages:
+
+```latex
+\sheetheader{Friendsgiving Bar}{酒保速查}{Sat, Nov 21 · 16 guests}
+\sheetsection{Made to Order}{现点现调}
+\noindent
+\begin{recipe}[half=row1]{name=Gold Rush, name-zh=淘金热, glass=rocks, abv=22,
+    method=摇, serve={古典杯 · 大方冰}, garnish=柠檬皮, source={Difford's Guide}}
+  \begin{ingredients}
+    \ing{60 mL}{2 oz}{Bourbon}{波本威士忌}
+  \end{ingredients}
+  \method{加冰用力摇 10–12 秒……}   % also \prep{…} \serve{…} \tip{…}
+\end{recipe}\hfill
+\begin{recipe}[half=row1]{…}…\end{recipe}\rowgap
+```
+
+`[half=<group>]` makes two cards side by side with equal heights. `\begin{checklist} \item … \end{checklist}` gives tick boxes.
+
+## Private info
+
+Never put passwords (Wi-Fi etc.) in a tracked file: this repository is public. `wifi.tex` and `*.private.tex` are git-ignored if you ever need something local-only.
+
 ## Build tools
 
 ```
 tools/build.sh        puts shared/ on TeX's path, runs latexmk (XeLaTeX), then impose.sh
+                      (imposition only for documents using the cocktailmenu class)
 tools/impose.sh       turns build/X.pdf into the print booklet build/X-print.pdf
 tools/new-event.sh    creates events/<name>/menu.tex (used by `make new`)
 Makefile              shortcuts for the above

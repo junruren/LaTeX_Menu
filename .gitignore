@@ -6,3 +6,7 @@ build/
 *.synctex.gz
 *.xdv
 .DS_Store
+
+# Private, per-event files that must never be committed (e.g. Wi-Fi passwords)
+wifi.tex
+*.private.tex

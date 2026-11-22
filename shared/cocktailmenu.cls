@@ -99,6 +99,7 @@
 \dim_new:N   \l__cm_icon_col_dim
 \dim_new:N   \l__cm_entry_sep_dim
 \dim_new:N   \l__cm_spirit_sep_dim
+\dim_new:N   \l__cm_group_sep_dim
 \dim_new:N   \l__cm_text_dim
 \dim_new:N   \l__cm_half_dim
 \seq_new:N   \l__cm_tmpa_seq
@@ -194,6 +195,7 @@
     icon-column  .dim_set:N  = \l__cm_icon_col_dim ,
     entry-sep    .dim_set:N  = \l__cm_entry_sep_dim ,
     spirit-sep   .dim_set:N  = \l__cm_spirit_sep_dim ,
+    group-sep    .dim_set:N  = \l__cm_group_sep_dim ,
     spread       .bool_set:N = \l__cm_spread_bool ,
   }
 
@@ -217,6 +219,7 @@
     icon-column = 0.66in,
     entry-sep   = 11pt,
     spirit-sep  = 6pt,
+    group-sep   = 12pt,
     spread = true,
   }
 
@@ -429,7 +432,7 @@
 \NewDocumentCommand \spiritgroup { m m }
   {
     \par
-    \__cm_vskip:n { 12pt }
+    \__cm_vskip:n { \l__cm_group_sep_dim }
     \noindent
     \bool_if:NT \l__cm_show_en_bool
       { { \menunamefont \fontsize{8.2}{10}\selectfont \addfontfeatures{LetterSpace=14}

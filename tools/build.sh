@@ -22,6 +22,8 @@ export TEXINPUTS
 cd "$dir"
 latexmk -xelatex -synctex=1 -interaction=nonstopmode -file-line-error \
         -outdir=build "$name.tex"
-if [ "$print" = 1 ]; then
+# Only half-letter menus (class cocktailmenu) get the folded-booklet version;
+# full-page documents such as the bartender cheatsheet are printed as-is.
+if [ "$print" = 1 ] && grep -q '{cocktailmenu}' "$name.tex"; then
   sh "$root/tools/impose.sh" "build/$name.pdf"
 fi
