@@ -34,6 +34,7 @@
   glass detail/.style = {glass, line width=0.35pt},
   liquid/.style       = {fill=glassliquid},
   glass solid/.style  = {fill=glassliquid},  % opaque vessels: copper, metal, ceramic
+  glass rib/.style    = {draw=glassline!40, line width=0.25pt},
 }
 
 % ---------------------------------------------------------------------
@@ -225,6 +226,21 @@
                    .. controls (0.42,0.86) and (0.19,1.06) .. (0.19,1.38) -- cycle}{0.62}
   \draw[glass detail] (-0.13,0.28) -- (0.13,0.28);}
 
+% ribbed stemless tumbler (party cup): shoulder near the rim, tapered base
+\newcommand\cg@stemlesspath{(-0.38,1.26) .. controls (-0.41,1.08) and (-0.43,0.9) .. (-0.42,0.74)
+  .. controls (-0.41,0.4) and (-0.33,0.12) .. (-0.26,0) -- (0.26,0)
+  .. controls (0.33,0.12) and (0.41,0.4) .. (0.42,0.74)
+  .. controls (0.43,0.9) and (0.41,1.08) .. (0.38,1.26) -- cycle}
+\DeclareGlass{stemless}{%
+  \glassbowl[0.08]{\cg@stemlesspath}{1.0}
+  \begin{scope}
+    \clip \cg@stemlesspath;
+    \foreach \x in {-0.3,-0.2,...,0.31} \draw[glass rib] (\x,0.08) -- (\x,1.26);
+  \end{scope}
+  \draw[glass detail] (-0.27,0.08) -- (0.27,0.08);
+  \draw[glass detail, rotate around={-12:(-0.06,0.78)}] (-0.19,0.65) rectangle (0.07,0.91);
+  \draw[glass detail, rotate around={10:(0.08,0.42)}] (-0.04,0.3) rectangle (0.2,0.54);}
+
 % ---------------------------------------------------------------------
 %  Opaque vessels
 % ---------------------------------------------------------------------
@@ -268,5 +284,7 @@
 \GlassAlias{whiskey}{glencairn}
 \GlassAlias{coppermug}{mule}
 \GlassAlias{toddy}{irishcoffee}
+\GlassAlias{ribbed}{stemless}
+\GlassAlias{partycup}{stemless}
 
 \endinput

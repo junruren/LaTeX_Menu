@@ -106,6 +106,7 @@ If you add more pages with `\nextpanel`, the print build pads them to a multiple
 | `glass` | `rocks` | See `make catalog` → `shared/build/glass-catalog.pdf` |
 | `ingredients`, `ingredients-zh` | `{Gin, lime, sugar}` | Comma list, joined with `·` |
 | `taste`, `taste-zh` | `{Tart, clean}` | Italic (EN) and Kaiti 楷体 (ZH) |
+| `description`, `description-zh` | `{A fireside twist on…}` | Longer prose; same style and position as `taste` (use one or the other) |
 | `abv` | `18`, `12--15`, `0` | `0` prints **Zero Proof 无酒精** |
 | `price` | `14` | Optional; set `currency` to add a symbol in front |
 | `note`, `note-zh` | `Contains egg white` | Small accent-coloured line for allergens and similar |
@@ -113,9 +114,9 @@ If you add more pages with `\nextpanel`, the print build pads them to a multiple
 
 ### Glass styles
 
-`coupe` `nicknora` `martini` `margarita` `flute` `wine` `snifter` `hurricane` `irishcoffee` `rocks` `highball` `collins` `shot` `glencairn` `mule` `julep` `tiki`
+`coupe` `nicknora` `martini` `margarita` `flute` `wine` `snifter` `hurricane` `irishcoffee` `rocks` `highball` `collins` `shot` `glencairn` `stemless` `mule` `julep` `tiki`
 
-Aliases: `oldfashioned` `lowball` → rocks, `cocktail` → martini, `champagne` → flute, `brandy` → snifter, `whisky`/`whiskey` → glencairn, `coppermug` → mule, `toddy` → irishcoffee, `nickandnora` → nicknora.
+Aliases: `oldfashioned` `lowball` → rocks, `cocktail` → martini, `champagne` → flute, `brandy` → snifter, `whisky`/`whiskey` → glencairn, `coppermug` → mule, `toddy` → irishcoffee, `nickandnora` → nicknora, `ribbed`/`partycup` → stemless.
 
 Add your own glass in the preamble with `\DeclareGlass`; see the header of `shared/cocktailglasses.sty`.
 

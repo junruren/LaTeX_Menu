@@ -37,6 +37,10 @@
 % Middle dot: system fonts place U+00B7 inconsistently (full-width in Songti,
 % off-centre in Baskerville), so every `·' typed in the menu is replaced by a
 % small drawn dot in the accent colour. Use \menudot explicitly if you prefer.
+% Curly single quotes are English apostrophes here ("Aperol’s"), not
+% full-width CJK punctuation. (Chinese “双引号” stay full-width.)
+\xeCJKDeclareCharClass{Default}{"2018,"2019}
+
 \RequirePackage{newunicodechar}
 \NewDocumentCommand\menudot{}{%
   \raisebox{\dimexpr 0.5ex - 0.075em\relax}{%
@@ -97,6 +101,8 @@
 \dim_new:N   \l__cm_spirit_sep_dim
 \dim_new:N   \l__cm_text_dim
 \dim_new:N   \l__cm_half_dim
+\seq_new:N   \l__cm_tmpa_seq
+\seq_new:N   \l__cm_tmpb_seq
 
 % per-item (reset automatically because every item is typeset in a group)
 \tl_new:N    \l__cm_name_tl
@@ -286,18 +292,31 @@
   {
     \bool_if:NTF \l__cm_zh_first_bool
       {
-        \tl_if_blank:VF \l__cm_name_zh_tl { { \__cm_font_name_zh: \l__cm_name_zh_tl } \hspace{0.6em} }
+        \tl_if_blank:VF \l__cm_name_zh_tl { \mbox { \__cm_font_name_zh: \l__cm_name_zh_tl } \hspace{0.6em} }
         { \__cm_font_name: \fontsize{8.4}{12.5}\selectfont \__cm_case:n { \l__cm_name_tl } }
       }
       {
         { \__cm_font_name: \__cm_case:n { \l__cm_name_tl } }
         \bool_if:NT \l__cm_show_zh_bool
-          { \tl_if_blank:VF \l__cm_name_zh_tl { \hspace{0.55em} { \__cm_font_name_zh: \l__cm_name_zh_tl } } }
+          { \tl_if_blank:VF \l__cm_name_zh_tl { \hspace{0.55em} \mbox { \__cm_font_name_zh: \l__cm_name_zh_tl } } }
       }
   }
 
+% Names on the left, ABV / price flush right. When a long name doesn't fit,
+% the Chinese name moves down as a whole (never split mid-name) and ABV /
+% price stay flush right on the last line (TeXbook p.106 trick).
 \cs_new_protected:Npn \__cm_name_line:
-  { \__cm_names: \hfill \__cm_abv_price: \par }
+  {
+    \group_begin:
+      \skip_set:Nn \parfillskip { 0pt }
+      \__cm_names:
+      % \hfill (2nd order) so it beats \raggedright's 1fil \rightskip
+      \unskip \nobreak \hfill \penalty 50
+      \hskip 0.8em \hbox{} \nobreak \hfill
+      \mbox { \__cm_abv_price: }
+      \par
+    \group_end:
+  }
 
 % English description block
 \cs_new_protected:Npn \__cm_desc_en:
@@ -312,7 +331,12 @@
 \cs_new_protected:Npn \__cm_desc_zh:
   {
     \clist_if_empty:NF \l__cm_ingr_zh_clist
-      { { \__cm_font_body_zh: \clist_use:Nn \l__cm_ingr_zh_clist { \l__cm_sep_zh_tl } \par } }
+      {
+        % keep each Chinese item whole (CJK text may otherwise break mid-word)
+        \seq_set_from_clist:NN \l__cm_tmpa_seq \l__cm_ingr_zh_clist
+        \seq_set_map:NNn \l__cm_tmpb_seq \l__cm_tmpa_seq { \mbox {##1} }
+        { \__cm_font_body_zh: \seq_use:Nn \l__cm_tmpb_seq { \l__cm_sep_zh_tl } \par }
+      }
     \tl_if_blank:VF \l__cm_taste_zh_tl
       { { \__cm_font_taste_zh: \l__cm_taste_zh_tl \par } }
   }
@@ -371,6 +395,9 @@
     price          .tl_set:N    = \l__cm_price_tl ,
     note           .tl_set:N    = \l__cm_note_tl ,
     note-zh        .tl_set:N    = \l__cm_note_zh_tl ,
+    % longer prose; shares the taste slot (italic EN / Kaiti ZH)
+    description    .meta:n      = { taste = {#1} } ,
+    description-zh .meta:n      = { taste-zh = {#1} } ,
   }
 
 % ---------------------------------------------------------------------
@@ -431,7 +458,7 @@
       \noindent
       \begin{minipage}[t]{\linewidth}
         \raggedright
-        \__cm_names: \hfill \__cm_abv_price: \par
+        \__cm_name_line:
         \bool_if:NT \l__cm_show_en_bool
           {
             \bool_lazy_or:nnT { ! \tl_if_blank_p:V \l__cm_origin_tl } { ! \tl_if_blank_p:V \l__cm_taste_tl }
