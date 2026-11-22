@@ -474,10 +474,12 @@
             \bool_lazy_or:nnT { ! \tl_if_blank_p:V \l__cm_origin_zh_tl } { ! \tl_if_blank_p:V \l__cm_taste_zh_tl }
               {
                 \skip_vertical:n { 1pt }
-                { \__cm_font_body_zh: \l__cm_origin_zh_tl
+                % one font for the whole Chinese line: mixing Songti and Kaiti
+                % mid-line reads as a missing-glyph fallback, not as emphasis
+                { \__cm_font_taste_zh: \l__cm_origin_zh_tl
                   \bool_lazy_and:nnT { ! \tl_if_blank_p:V \l__cm_origin_zh_tl } { ! \tl_if_blank_p:V \l__cm_taste_zh_tl }
                     { \l__cm_sep_zh_tl }
-                  \__cm_font_taste_zh: \l__cm_taste_zh_tl \par }
+                  \l__cm_taste_zh_tl \par }
               }
           }
       \end{minipage}
