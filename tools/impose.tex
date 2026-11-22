@@ -1,0 +1,8 @@
+% Imposes a menu of 5.5in x 8.5in pages onto US Letter (landscape),
+% two panels per side, in booklet order. Called by tools/impose.sh.
+\documentclass{article}
+\usepackage[letterpaper,landscape,margin=0pt]{geometry}
+\usepackage{pdfpages}
+\begin{document}
+\includepdf[pages=-, nup=2x1, booklet=true, frame=false, noautoscale=true]{\menufile}
+\end{document}

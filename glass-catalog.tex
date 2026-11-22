@@ -1,0 +1,13 @@
+% !TEX program = xelatex
+% Reference sheet: every glass style available for `glass = ...`
+% (aliases are listed in grey under each name). Build: make catalog
+\documentclass[frame=none]{cocktailmenu}
+\begin{document}
+\menusection{Glassware}{杯型一览}
+\vspace{6pt}
+\glasscatalog[0.64in]
+\vfill
+\menutext{Use the name with \texttt{glass = ...} in \texttt{\textbackslash cocktail}.
+  Define your own with \texttt{\textbackslash DeclareGlass} (see cocktailglasses.sty).}
+  {在 \texttt{\textbackslash cocktail} 中以 \texttt{glass = ...} 指定杯型。}
+\end{document}

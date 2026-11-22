@@ -1,0 +1,27 @@
+{
+  // LaTeX Workshop: build with XeLaTeX into ./build, then produce the
+  // print-ready booklet (build/<name>-print.pdf). Triggered on save.
+  "latex-workshop.latex.outDir": "%DIR%/build",
+  "latex-workshop.latex.build.forceRecipeUsage": true,
+  "latex-workshop.latex.recipe.default": "first",
+  "latex-workshop.latex.recipes": [
+    { "name": "Menu: XeLaTeX + print booklet", "tools": ["xelatexmk", "impose"] },
+    { "name": "Menu: XeLaTeX only",            "tools": ["xelatexmk"] }
+  ],
+  "latex-workshop.latex.tools": [
+    {
+      "name": "xelatexmk",
+      "command": "latexmk",
+      "args": ["-cd", "-xelatex", "-synctex=1", "-interaction=nonstopmode",
+               "-file-line-error", "-outdir=%OUTDIR%", "%DOC%"]
+    },
+    {
+      "name": "impose",
+      "command": "sh",
+      "args": ["%DIR%/tools/impose.sh", "%OUTDIR%/%DOCFILE%.pdf"]
+    }
+  ],
+  "latex-workshop.latex.autoClean.run": "never",
+  "latex-workshop.view.pdf.viewer": "tab",
+  "files.associations": { "*.cls": "latex", "*.sty": "latex" }
+}
