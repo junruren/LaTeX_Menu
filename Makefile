@@ -8,8 +8,8 @@
 #  make catalog               glass reference -> shared/build/glass-catalog.pdf
 #  make clean                 remove all build folders
 #
-#  Each event folder gets build/menu.pdf (screen) and
-#  build/menu-print.pdf (print duplex, flip on short edge, fold).
+#  Each menu gets build/menu.pdf (screen), build/menu-print.pdf (duplex,
+#  short-edge flip) and build/menu-print-longedge.pdf (long-edge flip).
 # ----------------------------------------------------------------------
 MENUS := $(if $(E),$(wildcard events/$(E)/*.tex),$(wildcard events/*/*.tex))
 

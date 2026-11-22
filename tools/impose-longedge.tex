@@ -1,0 +1,16 @@
+% Same sheets as impose.tex, but every back side (even page) is turned
+% 180 degrees, so the booklet comes out right when the printer flips on
+% the LONG edge (the usual default for "two-sided"). Called by impose.sh.
+\documentclass{article}
+\usepackage[letterpaper,landscape,margin=0pt]{geometry}
+\usepackage{pdfpages}
+\begin{document}
+\pdfximage{\printfile}
+\edef\npages{\the\pdflastximagepages}
+\newcount\pg \pg=1
+\loop
+  \ifodd\pg \includepdf[pages=\the\pg, noautoscale=true]{\printfile}%
+  \else     \includepdf[pages=\the\pg, noautoscale=true, angle=180]{\printfile}\fi
+  \advance\pg by 1
+\ifnum\pg>\npages\relax\else\repeat
+\end{document}

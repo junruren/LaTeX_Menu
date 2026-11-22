@@ -36,7 +36,7 @@ Each menu in an event's `build/` folder gets two PDFs:
 | File | Use it for |
 |---|---|
 | `build/menu.pdf` | Screen viewing: one panel per page, in reading order |
-| `build/menu-print.pdf` | Printing: panels arranged two per Letter sheet in booklet order |
+| `build/menu-print.pdf`, `build/menu-print-longedge.pdf` | Printing: panels arranged two per Letter sheet in booklet order (see Printing) |
 | `build/cheatsheet.pdf` | The host's recipe cheatsheet: full Letter pages, print as-is (not imposed) |
 
 **In VS Code** (LaTeX Workshop), open the repo folder, open an event's `menu.tex` and save. It rebuilds both PDFs and shows a preview in a tab.
@@ -45,12 +45,22 @@ If you change `shared/cocktailmenu.cls` or `shared/cocktailglasses.sty`, every e
 
 ## Printing
 
-1. Open `build/menu-print.pdf` and print at **100% / Actual size** (not "Fit to page").
-2. Choose **double-sided, flip on short edge**.
-3. Fold the sheet in half with the cover facing out.
+Each menu gets two print files. They're the same sheet, set up for the two ways a duplex printer can flip the paper:
+
+| File | Two-sided setting |
+|---|---|
+| `build/menu-print.pdf` | **Short-Edge binding** (flip on short edge) |
+| `build/menu-print-longedge.pdf` | **Long-Edge binding** (flip on long edge; usually the default), with the back sides pre-rotated 180° |
+
+1. Print at **100% / Actual size**: *Scale to Fit* off, *Auto Rotate* on.
+2. Turn **Double-sided** on and pick the file that matches the binding your printer uses. If the dialog offers no binding choice, it's long-edge, so use `menu-print-longedge.pdf`.
+3. **Check one sheet first.** Hold it with the cover facing you and turn it over left to right, like opening a card. If the inside is upside down, print the other file (or switch the binding).
+4. Fold in half with the cover facing out.
 
 Pages run in this order: **1** front cover · **2** inside left · **3** inside right · **4** back.
 If you add more pages with `\nextpanel`, the print build pads them to a multiple of 4 and nests the sheets into a booklet.
+
+The bartender cheatsheet (`build/cheatsheet.pdf`) is plain Letter. Printing it single-sided lets both pages lie side by side on the bar.
 
 ## Writing a menu
 
@@ -185,7 +195,7 @@ Never put passwords (Wi-Fi etc.) in a tracked file: this repository is public. `
 ```
 tools/build.sh        puts shared/ on TeX's path, runs latexmk (XeLaTeX), then impose.sh
                       (imposition only for documents using the cocktailmenu class)
-tools/impose.sh       turns build/X.pdf into the print booklet build/X-print.pdf
+tools/impose.sh       turns build/X.pdf into build/X-print.pdf (+ X-print-longedge.pdf)
 tools/new-event.sh    creates events/<name>/menu.tex (used by `make new`)
 Makefile              shortcuts for the above
 .vscode/settings.json LaTeX Workshop recipes (call tools/build.sh)
